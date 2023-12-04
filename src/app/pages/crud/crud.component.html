@@ -6,7 +6,7 @@
         </div>
 
         <div class="add-user">
-            <button  class="btn-primary">+ Crear usuario</button>
+            <button (click)="showModal = true; actionUser = 'crear'" class="btn-primary">+ Crear usuario</button>
         </div>
 
         <div class="table-section table-nav">
@@ -54,23 +54,23 @@
                 <p>{{ user.phone }}</p>
             </div>
             <div class="actions">
-                <i class="edit fa-solid fa-pen-to-square"></i>
-                <i  class="delete fa-solid fa-trash"></i>
+                <i (click)="showModal = true; actionUser = 'editar'; userActive = user.idUser; getUser(user.idUser)" class="edit fa-solid fa-pen-to-square"></i>
+                <i (click)="showModal = true; actionUser = 'eliminar'; userActive = user.idUser" class="delete fa-solid fa-trash"></i>
             </div>
         </div>
 
     </div>
 </div>
 
-<div>
+<div [ngClass]="showModal ? 'modal-manager' : 'hide-modal'">
     <div *ngIf="actionUser === 'crear' || actionUser === 'editar'" class="modal-cu">
         <div class="modal-head">
-            <p>usuario</p>
-            <i  class="fa-solid fa-xmark"></i>
+            <p>{{ actionUser | titlecase }} usuario</p>
+            <i (click)="showModal = false; this.formUser.reset()" class="fa-solid fa-xmark"></i>
         </div>
 
         <div class="modal-body">
-            <form>
+            <form [formGroup]="formUser">
 
                 <div class="input-group">
                     <label>Nombre</label>
@@ -111,13 +111,13 @@
         </div>
 
         <div class="modal-footer">
-            <div  class="cancel">
+            <div (click)="showModal = false" class="cancel">
                 <i class="fa-solid fa-xmark"></i>
-                <p >Cancelar</p>
+                <p (click)="this.formUser.reset()">Cancelar</p>
             </div>
             <div class="save">
                 <i class="fa-solid fa-check"></i>
-                <p>Guardar</p>
+                <p (click)="actionUser == 'crear' ? createUser() : updateUser(userActive)">Guardar</p>
             </div>
         </div>
     </div>
@@ -125,7 +125,7 @@
     <div *ngIf="actionUser === 'eliminar'" class="modal-delete"> 
         <div class="modal-head">
             <p>Confirmar</p>
-            <i class="fa-solid fa-xmark"></i>
+            <i (click)="showModal = false" class="fa-solid fa-xmark"></i>
         </div>
 
         <div class="modal-body">
@@ -134,13 +134,13 @@
         </div>
 
         <div class="modal-footer">
-            <div class="cancel">
+            <div (click)="showModal = false" class="cancel">
                 <i class="fa-solid fa-xmark"></i>
                 <p>No</p>
             </div>
             <div class="save">
                 <i class="fa-solid fa-check"></i>
-                <p>Eliminar</p>
+                <p (click)="deleteUser(userActive)">Eliminar</p>
             </div>
         </div>
     </div>

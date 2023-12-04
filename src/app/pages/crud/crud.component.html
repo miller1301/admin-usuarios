@@ -1,0 +1,148 @@
+<div class="main">
+    <div class="table">
+
+        <div class="head">
+            <h1>Usuarios</h1>
+        </div>
+
+        <div class="add-user">
+            <button  class="btn-primary">+ Crear usuario</button>
+        </div>
+
+        <div class="table-section table-nav">
+            <div class="user">
+                <p>USUARIO</p>
+            </div>
+            <div class="user-role">
+                <p>ROL</p>
+            </div>
+            <div class="status">
+                <p>ESTADO</p>
+            </div>
+            <div class="age">
+                <p>IDENTIFICACIÓN</p>
+            </div>
+            <div class="email">
+                <p>EMAIL</p>
+            </div>
+            <div class="phone">
+                <p>TELÉFONO</p>
+            </div>
+            <div class="actions">
+                <p>ACCIONES</p>
+            </div>
+        </div>
+
+        <div *ngFor="let user of users" class="table-section table-body">
+            <div class="user">
+                <img [src]="user.img" alt="user-img">
+                <p>{{ user.name }}</p>
+            </div>
+            <div class="user-role">
+                <p>{{ user.role }}</p>
+            </div>
+            <div class="status">
+                <p>{{ user.status }}</p>
+            </div>
+            <div class="age">
+                <p>{{ user.idUser }}</p>
+            </div>
+            <div class="email">
+                <p>{{ user.email }}</p>
+            </div>
+            <div class="phone">
+                <p>{{ user.phone }}</p>
+            </div>
+            <div class="actions">
+                <i class="edit fa-solid fa-pen-to-square"></i>
+                <i  class="delete fa-solid fa-trash"></i>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div>
+    <div *ngIf="actionUser === 'crear' || actionUser === 'editar'" class="modal-cu">
+        <div class="modal-head">
+            <p>usuario</p>
+            <i  class="fa-solid fa-xmark"></i>
+        </div>
+
+        <div class="modal-body">
+            <form>
+
+                <div class="input-group">
+                    <label>Nombre</label>
+                    <input formControlName="name" type="text">
+                </div>
+    
+                <div class="input-group">
+                    <label>URL foto</label>
+                    <input formControlName="img" type="text">
+                </div>
+    
+                <div class="input-group">
+                    <label>Rol</label>
+                    <input formControlName="role" type="text">
+                </div>
+    
+                <div class="input-group">
+                    <label>Estado</label>
+                    <input formControlName="status" type="text">
+                </div>
+    
+                <div class="input-group">
+                    <label>Identificación</label>
+                    <input formControlName="idUser" type="text">
+                </div>
+    
+                <div class="input-group">
+                    <label>Email</label>
+                    <input formControlName="email" type="text">
+                </div>
+    
+                <div class="input-group">
+                    <label>Teléfono</label>
+                    <input formControlName="phone" type="text">
+                </div>
+
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <div  class="cancel">
+                <i class="fa-solid fa-xmark"></i>
+                <p >Cancelar</p>
+            </div>
+            <div class="save">
+                <i class="fa-solid fa-check"></i>
+                <p>Guardar</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="actionUser === 'eliminar'" class="modal-delete"> 
+        <div class="modal-head">
+            <p>Confirmar</p>
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+
+        <div class="modal-body">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <p>¿Estás seguro que quieres eliminar este usuario?</p>
+        </div>
+
+        <div class="modal-footer">
+            <div class="cancel">
+                <i class="fa-solid fa-xmark"></i>
+                <p>No</p>
+            </div>
+            <div class="save">
+                <i class="fa-solid fa-check"></i>
+                <p>Eliminar</p>
+            </div>
+        </div>
+    </div>
+</div>
+
